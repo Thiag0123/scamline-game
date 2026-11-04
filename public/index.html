@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo da escamação</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Sidebar esquerda: avatares dos jogadores (visível no lobby e durante o jogo) -->
+  <aside id="player-sidebar" style="display:none"></aside>
+
+  <div id="main-content">
+    <!-- TELA: entrar com nome + criar/entrar em sala -->
+    <section id="screen-home" class="screen active">
+      <h1>JOGO DA ESCAMAÇÃO</h1>
+      <input id="input-name" type="text" placeholder="Seu nome" maxlength="20" />
+
+      <div class="home-actions">
+        <button id="btn-create-room">Criar Sala</button>
+
+        <div class="join-row">
+          <input id="input-code" type="text" placeholder="CÓDIGO" maxlength="4" />
+          <button id="btn-join-room">Entrar</button>
+        </div>
+      </div>
+      <p id="home-error" class="error-msg"></p>
+    </section>
+
+    <!-- TELA: lobby -->
+    <section id="screen-lobby" class="screen">
+      <h2>Sala: <span id="lobby-code"></span></h2>
+      <ul id="lobby-players"></ul>
+
+      <p class="hint" style="margin:10px 0 4px;">Escolha sua imagem de perfil:</p>
+      <div id="avatar-picker"></div>
+
+      <button id="btn-ready">Pronto</button>
+      <div id="host-controls" style="display:none">
+        <input id="input-rounds" type="number" min="1" max="20" value="10" style="width:70px" />
+        <p class="hint" style="margin:10px 0 4px;">Minigames nesta partida:</p>
+        <div id="minigame-selector" style="text-align:left; max-height:220px; overflow-y:auto; background:#1f1f2e; border-radius:8px; padding:8px;"></div>
+        <button id="btn-start-game">Iniciar Partida</button>
+      </div>
+      <p class="hint">Aguardando até 5 jogadores...</p>
+    </section>
+
+    <!-- TELA: jogo (rodadas) -->
+    <section id="screen-game" class="screen">
+      <div id="game-hud">
+        <span id="game-round-label"></span>
+        <div id="game-minigame-label"></div>
+        <div id="game-timer"></div>
+      </div>
+      <div id="minigame-container"></div>
+    </section>
+
+    <!-- TELA: resultado final (revelação sincronizada pelo servidor) -->
+    <section id="screen-final" class="screen">
+      <div id="final-content"></div>
+    </section>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

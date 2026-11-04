@@ -1,0 +1,290 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #14141f;
+  color: #f2f2f2;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#player-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 16px;
+  width: 124px;
+  flex-shrink: 0;
+  align-items: center;
+}
+.sidebar-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #1f1f2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  border: 2px solid transparent;
+  position: relative;
+}
+.sidebar-avatar.disconnected { opacity: 0.3; }
+.sidebar-name {
+  font-size: 1.0rem;
+  text-align: center;
+  opacity: 0.7;
+  max-width: 80px;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: break-word;
+}
+
+#main-content {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+}
+
+.screen {
+  display: none;
+  text-align: center;
+}
+
+.screen.active {
+  display: block;
+}
+
+#avatar-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  background: #1f1f2e;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+.avatar-option {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #14141f;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  margin: 0;
+  padding: 0;
+}
+.avatar-option.selected { border-color: var(--mg-accent, #ff5e5e); }
+
+h1 { font-size: 2.2rem; margin-bottom: 24px; }
+
+input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  margin: 6px;
+  width: 200px;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: var(--mg-accent, #ff5e5e);
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 6px;
+}
+
+button:hover { filter: brightness(1.15); }
+button:disabled { opacity: 0.5; cursor: default; filter: none; }
+
+.home-actions { margin-top: 20px; }
+.join-row { margin-top: 12px; }
+.error-msg { color: #ff8080; min-height: 1.2em; }
+
+#lobby-players {
+  list-style: none;
+  padding: 0;
+}
+#lobby-players li {
+  background: #1f1f2e;
+  margin: 6px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+#lobby-players li.host::after { content: " 👑"; }
+#lobby-players li.ready { color: #8aff8a; }
+
+/* Cabeçalho fixo do jogo: nome do minigame + timer, sempre visíveis e grandes */
+#game-hud {
+  margin-bottom: 16px;
+  text-align: center;
+}
+#game-round-label {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+#game-minigame-label {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--mg-accent, #ff5e5e);
+}
+#game-timer {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 4px;
+  min-height: 1.6rem;
+}
+
+#minigame-container {
+  background: #1f1f2e;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 260px;
+  border-top: 5px solid var(--mg-accent, transparent);
+}
+
+.mg-wait-screen, .mg-explain-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+.mg-wait-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+.mg-explain-icon {
+  font-size: 3.5rem;
+  margin-bottom: 8px;
+}
+.mg-explain-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--mg-accent, #ff5e5e);
+  margin-bottom: 10px;
+}
+.mg-explain-desc {
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Tela final: revelação passo a passo */
+#final-content {
+  text-align: center;
+}
+.final-step-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+.final-step-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.final-step-list li {
+  background: #1f1f2e;
+  margin: 6px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+}
+.final-step-list li.gain { color: #8aff8a; }
+.final-step-list li.loss { color: #ff8080; }
+.final-step-counter {
+  opacity: 0.6;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+#final-ranking-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+#final-ranking-list li {
+  background: #1f1f2e;
+  margin: 6px 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+}
+
+/* Chat múltiplo (conversas separadas por pessoa/sala) */
+.mchat-wrap { display: flex; gap: 8px; text-align: left; height: 260px; }
+.mchat-contacts {
+  width: 90px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background: #14141f;
+  border-radius: 8px;
+  padding: 4px;
+}
+.mchat-contact {
+  padding: 8px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.mchat-contact.active { background: var(--mg-accent, #ff5e5e); }
+.mchat-contact.unread::after { content: " •"; color: #8aff8a; }
+.mchat-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #14141f;
+  border-radius: 8px;
+  padding: 6px;
+}
+.mchat-messages { flex: 1; overflow-y: auto; margin-bottom: 6px; font-size: 0.85rem; }
+.mchat-messages div { margin: 3px 0; }
+.mchat-input-row { display: flex; gap: 4px; }
+.mchat-input-row input { flex: 1; margin: 0; }
+.mchat-input-row button { margin: 0; padding: 8px 10px; }
+
+.pname {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pname .avatar-inline { font-size: 1.2rem; }
+
+/* Desempate */
+.tiebreaker-icon { font-size: 2.5rem; margin-bottom: 10px; }
+#rps-options button, #bar-fill-container { width: 100%; }
+#bar-track {
+  width: 100%;
+  height: 28px;
+  background: #14141f;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 14px 0;
+  position: relative;
+}
+#bar-fill {
+  height: 100%;
+  background: var(--mg-accent, #ff5e5e);
+  width: 0%;
+}
